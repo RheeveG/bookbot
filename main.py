@@ -1,16 +1,22 @@
 from stats import count_words
+import sys
 
 def main():
-    content = read_contents()
+    if len(sys.argv) < 2:
+        print ("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    path_to_book = sys.argv[1]
+    print (path_to_book)
+    content = read_contents(path_to_book)
     
     prep_content = prepare_text(content)
     dict = process_char_dict(prep_content)
     sorted = sort_dict(dict)
-    print_report(content, sorted)
+    print_report(content, sorted, path_to_book)
 
 
-def read_contents():    
-    with open("books/frankenstein.txt") as f:
+def read_contents(path_to_book):    
+    with open(path_to_book) as f:
         file_contents = f.read()
     return (file_contents)
 
@@ -40,10 +46,10 @@ def sort_dict(dict):
     return char_list
     
     
-def print_report(content, sorted):
-    print("--- Begin report of books/frankenstein.txt ---\n")
+def print_report(content, sorted, path_to_book):
+    print(f"--- Begin report of {path_to_book} ---\n")
     count_words(content)
     for e in sorted:
-        print(f"The '{e["key"]}' character was used {e["num"]} times.")
+        print(f"{e["key"]}: {e["num"]}")
     print("--- End of Report ---\n")
 main()
