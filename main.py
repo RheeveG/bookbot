@@ -1,3 +1,5 @@
+from stats import count_words
+
 def main():
     content = read_contents()
     
@@ -11,13 +13,6 @@ def read_contents():
     with open("books/frankenstein.txt") as f:
         file_contents = f.read()
     return (file_contents)
-
-def count_words(file_contents):
-    words = file_contents.split()
-    total = 0
-    for word in words:
-        total += 1
-    print (f"The text has a total of {total} words")
 
 def prepare_text(file_contents):
     lowered_file_contents = file_contents.lower()
